@@ -32,7 +32,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   findById(id: string): User | undefined {
-    // Complete aqui
+    const user = this.users.find((user) => user.id === id);
+
+    return user;
   }
 
   findByEmail(email: string): User | undefined {
@@ -40,7 +42,21 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    // Complete aqui
+    const userIndex = this.users.findIndex(
+      (user) => user.id === receivedUser.id
+    );
+
+    const updatedUser = {
+      id: receivedUser.id,
+      name: receivedUser.name,
+      email: receivedUser.email,
+      admin: true,
+      created_at: receivedUser.created_at,
+    };
+
+    this.users.splice(userIndex, 1, updatedUser);
+
+    return updatedUser;
   }
 
   list(): User[] {
