@@ -27,7 +27,7 @@ class UsersRepository implements IUsersRepository {
     });
 
     this.users.push(user);
-    console.log(user);
+
     return user;
   }
 
@@ -38,7 +38,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   findByEmail(email: string): User | undefined {
-    // Complete aqui
+    const user = this.users.find((user) => user.email === email);
+
+    return user;
   }
 
   turnAdmin(receivedUser: User): User {
@@ -52,6 +54,7 @@ class UsersRepository implements IUsersRepository {
       email: receivedUser.email,
       admin: true,
       created_at: receivedUser.created_at,
+      updated_at: new Date(),
     };
 
     this.users.splice(userIndex, 1, updatedUser);
